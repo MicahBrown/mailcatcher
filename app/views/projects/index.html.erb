@@ -1,0 +1,18 @@
+<section class="hero is-fullheight-with-navbar">
+  <div class="hero-body" style="align-items: stretch;">
+    <div class="container">
+      <h1 class="title mb-5">Projects</h1>
+      <% projects = Project.order("name ASC") %>
+
+      <% if projects.present? %>
+        <ul>
+          <% projects.each do |project| %>
+            <li><%= link_to project.name, project_path(project) %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>No projects added.</p>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<turbo-frame id="message-view">
+  <div class="message-content" data-message-id="<%= message.id %>" data-controller="switch">
+    <table>
+      <tbody>
+        <tr>
+          <th>Subject</th>
+          <td><%= message.subject %></td>
+        </tr>
+        <tr>
+          <th>To</th>
+          <td><%= message.to.join(", ") %></td>
+        </tr>
+        <tr>
+          <th>Sent</th>
+          <td><%= timestamp message.created_at %></td>
+        </tr>
+        <% if message.contents.size > 1 %>
+          <tr>
+            <th>Format</th>
+            <td><%= select_tag :format, options_for_select([["HTML", "html"], ["plain text", "text"]], "html"), data: {action: "switch#toggle", switch_target: "switch"} %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <hr class="divider">
+    <% message.contents.each do |content| %>
+      <% html = content.content_type.include?("text/html")%>
+      <div data-switch-target="item" data-switch-id="<%= html ? 'html' : 'text' %>" class="is-hidden">
+        <% if html %>
+          <iframe style="width: 100%; min-height: 500px;" frameborder="0" src="<%= project_message_path(project, message, html: true) %>"></iframe>
+        <% else %>
+          <%= simple_format h(content.body) %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</turbo-frame>
