@@ -1,0 +1,11 @@
+<% projects = Project.order("name ASC") %>
+
+<% if projects.present? %>
+  <ul>
+    <% projects.each do |project| %>
+      <li><%= link_to project.name, project_path(project) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No projects added.</p>
+<% end %>

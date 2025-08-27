@@ -1,0 +1,30 @@
+<div class="columns" style="height: 100%; max-width: none;" data-controller="frame-loader">
+  <div class="column is-one-third" style="max-height: 100%; overflow-y: auto;">
+    <h1 class="title mb-3">Sent Messages</h1>
+    <div class="mb-3">
+      <%= button_to "Clear Inbox", project_clear_inbox_path(@project), method: :delete, class: "button tiny warning", data: {confirm: "Are you sure you want to clear the inbox?"}, form: {style: "display: inline-block;"} %>
+      <%= button_tag "Refresh Inbox", type: :button, class: "button tiny", data: {action: "frame-loader#load", frame_loader_id_param: "messages", frame_loader_path_param: project_messages_path(@project)} %>
+    </div>
+
+    <!-- placeholder where list of messages to view is placed -->
+    <div id="message-list">
+      <turbo-frame id="messages" src="<%= project_messages_path(@project) %>" data-frame-loader-target="frame">
+        Loading messages list...
+      </turbo-frame>
+    </div>
+  </div>
+
+  <div class="column" style="min-height: 100%; border-left: 2px solid #6f6f6f;">
+    <%= link_to "Back to Projects List", root_path, class: "is-float-right is-size-7" %>
+    <h1 class="title mb-3">Message Viewer</h1>
+
+    <!-- placeholder where view for message content is placed -->
+    <turbo-frame id="message-view" data-frame-loader-target="frame">
+      <p>No message currently being viewed.</p>
+    </turbo-frame>
+
+    <small>
+      <%#= link_to "Sign Out", logout_path, method: :delete %>
+    </small>
+  </div>
+</div>
