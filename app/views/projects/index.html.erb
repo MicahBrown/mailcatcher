@@ -2,7 +2,7 @@
   <div class="hero-body" style="align-items: stretch;">
     <div class="container">
       <h1 class="title mb-5">Projects</h1>
-      <% projects = Project.order("name ASC") %>
+      <% projects = Project.where(id: Current.user.project_ids).order("name ASC") %>
 
       <% if projects.present? %>
         <ul>
