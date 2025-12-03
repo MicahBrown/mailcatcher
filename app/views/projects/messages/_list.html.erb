@@ -4,7 +4,7 @@
     <ul>
       <% messages.each do |message| %>
         <li style="margin-bottom: 1rem;">
-          <%= button_tag message.subject, data: {action: "frame-loader#load", frame_loader_id_param: "message-view", frame_loader_path_param: project_message_path(@project, message)}, class: "button is-link is-ghost", style: "padding: 0;" %><br>
+          <%= button_tag message.subject, data: {action: "frame-loader#load", frame_loader_id_param: "message-view", frame_loader_path_param: project_message_path(project, message)}, class: "button is-link is-ghost", style: "padding: 0;" %><br>
           <small>Sent <%= timestamp message.created_at %></small>
         </li>
       <% end %>
