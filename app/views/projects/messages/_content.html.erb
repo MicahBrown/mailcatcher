@@ -3,20 +3,28 @@
     <table>
       <tbody>
         <tr>
-          <th>Subject</th>
+          <th class="pr-3">Subject</th>
           <td><%= message.subject %></td>
         </tr>
         <tr>
-          <th>To</th>
+          <th class="pr-3">To</th>
           <td><%= message.to.join(", ") %></td>
         </tr>
         <tr>
-          <th>Sent</th>
+          <th class="pr-3">Sent</th>
           <td><%= timestamp message.created_at %></td>
         </tr>
+        <% if message.attachments.attached? %>
+          <tr>
+            <th class="pr-3">Attached</th>
+            <td>
+              <%= message.attachments.map { |attach| link_to(attach.filename.to_s, url_for(attach)) }.to_sentence.html_safe %>
+            </td>
+          </tr>
+        <% end %>
         <% if message.contents.size > 1 %>
           <tr>
-            <th>Format</th>
+            <th class="pr-3">Format</th>
             <td><%= select_tag :format, options_for_select([["HTML", "html"], ["plain text", "text"]], "html"), data: {action: "switch#toggle", switch_target: "switch"} %></td>
           </tr>
         <% end %>

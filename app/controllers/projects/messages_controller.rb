@@ -4,7 +4,6 @@ class Projects::MessagesController < ApplicationController
 
   def index
     @project = authorize!(Project.find(params[:project_id]))
-
     render partial: "list", locals: {project: @project}
   end
 
@@ -21,7 +20,8 @@ class Projects::MessagesController < ApplicationController
 
   def create
     @project = Project.find_by!(token: params[:project_id])
-    @message = @project.build_message(params.require(:message).permit(:subject, :to, :from, to: [], from: [], content: ["text/html; charset=UTF-8", "text/plain; charset=UTF-8"]))
+
+    @message = @project.build_message(attachment_params)
 
     respond_to do |format|
       if @message.save
@@ -31,4 +31,19 @@ class Projects::MessagesController < ApplicationController
       end
     end
   end
+
+  private
+
+    def attachment_params
+      permitted = params.require(:message).permit(:subject, :to, :from, to: [], from: [], content: ["text/html; charset=UTF-8", "text/plain; charset=UTF-8"])
+
+      if params[:message][:attachments].present?
+        params[:message][:attachments].each do |attachment|
+          permitted[:attachments] ||= []
+          permitted[:attachments] << attachment.permit(:filename, :content_type, :content)
+        end
+      end
+
+      permitted
+    end
 end

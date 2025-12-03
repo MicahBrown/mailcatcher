@@ -6,7 +6,7 @@
       <h1 class="title">Login</h1>
       <%= form_with url: login_path do |form| %>
         <div class="field">
-          <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address], class: "input" %><br>
+          <%= form.email_field :email_address, value: params[:email_address], required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address], class: "input" %><br>
         </div>
         <div class="field">
           <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72, class: "input" %>
