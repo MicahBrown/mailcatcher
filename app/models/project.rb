@@ -13,7 +13,7 @@ class Project < ApplicationRecord
       message.contents.build(content_type: content_type, body: body, message: message)
     end
 
-    attachments.each do |attachment|
+    attachments.present? && attachments.each do |attachment|
       message.attachments.attach(
         io: StringIO.new(attachment[:content]),
         filename: attachment[:filename],
