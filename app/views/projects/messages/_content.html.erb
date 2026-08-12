@@ -33,7 +33,7 @@
     <hr class="divider">
     <% message.contents.each do |content| %>
       <% html = content.content_type.include?("text/html")%>
-      <div data-switch-target="item" data-switch-id="<%= html ? 'html' : 'text' %>" class="is-hidden">
+      <div data-switch-target="item" data-switch-id="<%= html ? 'html' : 'text' %>" class="is-hidden" style="background: #fff;">
         <% if html %>
           <iframe style="width: 100%; min-height: 500px;" frameborder="0" src="<%= project_message_path(project, message, html: true) %>"></iframe>
         <% else %>
