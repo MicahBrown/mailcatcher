@@ -18,7 +18,7 @@
           <tr>
             <th class="pr-3">Attached</th>
             <td>
-              <%= message.attachments.map { |attach| link_to(attach.filename.to_s, url_for(attach)) }.to_sentence.html_safe %>
+              <%= message.attachments.map { |attach| link_to(attach.filename.to_s, url_for(attach), target: "_blank") }.to_sentence.html_safe %>
             </td>
           </tr>
         <% end %>
