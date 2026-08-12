@@ -18,7 +18,6 @@ export default class extends Controller {
 
   connect() {
     const klass = this
-    console.log(klass)
 
     // add slight delay to allow child switch controllers to initialize (for consumeChildSwitches)
     setTimeout(function(){

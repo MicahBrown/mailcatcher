@@ -32,12 +32,25 @@
     </table>
     <hr class="divider">
     <% message.contents.each do |content| %>
-      <% html = content.content_type.include?("text/html")%>
-      <div data-switch-target="item" data-switch-id="<%= html ? 'html' : 'text' %>" class="is-hidden" style="background: #fff;">
+      <%
+        html = content.content_type.include?("text/html")
+        attrs = {
+          style: "background: #fff;"
+        }
+
+        if message.contents.size > 1
+          attrs[:data] = {
+            class: "is-hidden",
+            switch_target: "item",
+            switch_id: html ? "html" : "text"
+          }
+        end
+      %>
+      <div <%= tag.attributes(attrs) %>>
         <% if html %>
           <iframe style="width: 100%; min-height: 500px;" frameborder="0" src="<%= project_message_path(project, message, html: true) %>"></iframe>
         <% else %>
-          <%= simple_format h(content.body) %>
+          <pre style="white-space: pre-wrap; word-wrap: break-word; overflow-wrap: break-word; width: 100%; max-width: 100%;"><%= h(content.body) %></pre>
         <% end %>
       </div>
     <% end %>
